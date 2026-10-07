@@ -1,0 +1,58 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+
+# Environments
+.venv/
+venv/
+env/
+ENV/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# Data (keep folder structure via .gitkeep, ignore contents)
+data/raw/*
+data/interim/*
+data/processed/*
+data/external/*
+!data/**/.gitkeep
+!data/sample/*
+
+# Models and artefacts
+models/*
+!models/.gitkeep
+*.h5
+*.keras
+*.cbm
+*.pkl
+*.joblib
+*.pt
+*.pth
+
+# Reports (optionally keep selected figures)
+reports/figures/*
+!reports/figures/.gitkeep
+
+# IDE / OS
+.vscode/*
+!.vscode/settings.json
+.idea/
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Logs & Tracking
+*.log
+mlruns/
+catboost_info/
+cmdstan*/
+wandb/
