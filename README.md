@@ -119,12 +119,13 @@ uvicorn api.app:app --reload --port 8000
 
 ## Documentation
 
-- [Technical Specification](file:///C:/Users/mozam/.gemini/antigravity-ide/scratch/retail-demand-forecasting/docs/tech_spec.md)
-- [Data Dictionary](file:///C:/Users/mozam/.gemini/antigravity-ide/scratch/retail-demand-forecasting/docs/data_dictionary.md)
-- [Business & Forecast KPIs](file:///C:/Users/mozam/.gemini/antigravity-ide/scratch/retail-demand-forecasting/docs/kpis.md)
+- [Technical Specification](docs/tech_spec.md)
+- [Data Dictionary](docs/data_dictionary.md)
+- [Business & Forecast KPIs](docs/kpis.md)
 
 ---
 
 ## License
 
-This project is licensed under the [MIT License](file:///C:/Users/mozam/.gemini/antigravity-ide/scratch/retail-demand-forecasting/LICENSE).
+This project is licensed under the [MIT License](LICENSE).
+
