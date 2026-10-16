@@ -1,4 +1,4 @@
-"""Download raw datasets into data/raw. Safe to re-run."""
+﻿"""Download raw datasets into data/raw. Safe to re-run."""
 import os
 import shutil
 import subprocess
@@ -46,16 +46,16 @@ def extract_zip(zip_path: Path, destination: Path) -> None:
 
 def download_m5(target_dir: Optional[Path] = None, force: bool = False) -> Path:
     """Download the M5 Forecasting competition dataset using Kaggle CLI.
-    
+
     Falls back gracefully with actionable instructions if Kaggle CLI or
     credentials are not present.
     """
     out_dir = target_dir or TARGET_DIR
     out_dir.mkdir(parents=True, exist_ok=True)
-    
+
     eval_file = out_dir / "sales_train_evaluation.csv"
     val_file = out_dir / "sales_train_validation.csv"
-    
+
     if not force and (eval_file.exists() or val_file.exists()):
         logger.info(f"M5 dataset already present at: {out_dir}. Skipping download.")
         return out_dir
@@ -115,7 +115,7 @@ def generate_m5_sample(
     days: int = 730,
 ) -> Path:
     """Generate an exact M5-schema compatible sample dataset.
-    
+
     Produces `calendar.csv`, `sales_train_evaluation.csv`, and `sell_prices.csv`
     in exact M5 format. Useful for offline testing, CI environments, and
     immediate development without waiting for multi-gigabyte downloads.
@@ -129,7 +129,7 @@ def generate_m5_sample(
     start_date = pd.Timestamp("2014-01-01")
     dates = pd.date_range(start_date, periods=days, freq="D")
     d_cols = [f"d_{i+1}" for i in range(days)]
-    
+
     # M5 retail calendar week: wm_yr_wk is roughly 11401 to 11652 etc.
     cal_df = pd.DataFrame({
         "date": dates,
@@ -157,14 +157,14 @@ def generate_m5_sample(
         "TX_1", "TX_2", "TX_3",
         "WI_1", "WI_2", "WI_3"
     ][:num_stores]
-    
+
     categories = ["FOODS", "HOBBIES", "HOUSEHOLD"]
     dept_map = {
         "FOODS": ["FOODS_1", "FOODS_2", "FOODS_3"],
         "HOBBIES": ["HOBBIES_1", "HOBBIES_2"],
         "HOUSEHOLD": ["HOUSEHOLD_1", "HOUSEHOLD_2"]
     }
-    
+
     items_meta = []
     for cat in categories:
         depts = dept_map[cat]
@@ -183,7 +183,7 @@ def generate_m5_sample(
         state = s.split("_")[0]
         for item in items_meta:
             row_id = f"{item['item_id']}_{s}_evaluation"
-            
+
             # Poisson/intermittent daily demand
             lam = np.random.uniform(0.5, 8.0) if item["cat_id"] == "FOODS" else np.random.uniform(0.1, 3.0)
             daily_sales = np.random.poisson(lam=lam, size=days)

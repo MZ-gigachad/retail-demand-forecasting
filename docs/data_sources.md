@@ -1,16 +1,16 @@
-# Data Sources & Strategy — Retail Demand Forecasting Platform
+﻿# Data Sources & Strategy â€” Retail Demand Forecasting Platform
 
-**Project:** Retail Demand Forecasting & Inventory Optimization Platform  
-**Phase:** Week 1 — Data Engineering & Foundation (Day 2)  
-**Author:** Md Hussain  
-**Date:** October 2026  
+**Project:** Retail Demand Forecasting & Inventory Optimization Platform
+**Phase:** Week 1 â€” Data Engineering & Foundation (Day 2)
+**Author:** Md Hussain
+**Date:** October 2026
 **Status:** Data collection and profiling completed; domain extensions planned for Day 3
 
 ---
 
 ## 1. Target Schema & Data Requirements Checklist (Task 1)
 
-The target daily schema is defined in `docs/data_dictionary.md`. Its intended granularity is one record for each Date × Store_ID × Product_ID combination.
+The target daily schema is defined in `docs/data_dictionary.md`. Its intended granularity is one record for each Date Ã— Store_ID Ã— Product_ID combination.
 
 ```text
 Date, Store_ID, Product_ID, Category, Price, Promotion, Holiday,
@@ -22,9 +22,9 @@ Temperature, Inventory, Units_Sold, Revenue
 | Requirement | Why It Matters | Minimum Acceptable | Project Target | Status |
 |---|---|---|---|---|
 | Daily Sales per Store-Product | Main target for forecasting (`Units_Sold`) | Daily observations | Daily sales across multiple years | Met by M5 benchmark |
-| History Length | Captures seasonality, holidays and demand patterns | At least 730 days | Approximately 3–5 years where available | Met: 1,941 sales days |
+| History Length | Captures seasonality, holidays and demand patterns | At least 730 days | Approximately 3â€“5 years where available | Met: 1,941 sales days |
 | Store Diversity | Supports store-level demand analysis | At least 5 stores | 10 stores mapped to Indian retail locations | Met: 10 stores |
-| Product & Category Coverage | Supports product and category comparisons | At least 3 categories and 50 products | 100–200 selected items | Met: 108 selected items |
+| Product & Category Coverage | Supports product and category comparisons | At least 3 categories and 50 products | 100â€“200 selected items | Met: 108 selected items |
 | Price History | Supports price and revenue analysis | Price records over time | Weekly prices by store and item | Available in `sell_prices.csv` |
 | Promotions & Discounts | Helps study price-related demand changes | Promotion indicator | Derived promotion and discount features | Planned for Day 3 |
 | Holidays & Events | Helps explain seasonal demand changes | Calendar features | Indian holidays and festivals | Planned for Day 3 |
@@ -37,12 +37,12 @@ Temperature, Inventory, Units_Sold, Revenue
 
 ### 2.1 Candidate Comparison
 
-**Option A: M5 Forecasting Accuracy — Kaggle**
+**Option A: M5 Forecasting Accuracy â€” Kaggle**
 
 - **Strengths:** Real daily unit sales, 3,049 items, 10 stores, 1,941 sales days, intermittent demand and weekly prices.
 - **Limitations:** US retail context, USD prices, wide-format sales data and no direct inventory or weather records.
 
-**Option B: Corporación Favorita Grocery Sales — Kaggle**
+**Option B: CorporaciÃ³n Favorita Grocery Sales â€” Kaggle**
 
 - **Strengths:** Includes promotion flags, store information, transactions and oil-price data.
 - **Limitations:** Different product granularity and no equivalent individual shelf-price history for the intended workflow.
@@ -103,13 +103,13 @@ The profile below was generated from the original M5 Forecasting Accuracy datase
 | Departments | 7 | Supports department-level comparisons |
 | Full sales series | 30,490 | Store-item combinations |
 | Subset sales series | 1,080 | 108 items across 10 stores |
-| Full reshaped row estimate | 59,181,090 | 30,490 series × 1,941 sales days |
-| Interim subset rows | 2,096,280 | 1,080 series × 1,941 sales days |
+| Full reshaped row estimate | 59,181,090 | 30,490 series Ã— 1,941 sales days |
+| Interim subset rows | 2,096,280 | 1,080 series Ã— 1,941 sales days |
 | Total raw sales units | 66,927,173 | Sum across the raw sales history |
 | Subset sales units | 1,937,034 | Sum across the selected series |
 | Zero-sales cells | 68.0% | Indicates intermittent demand |
 | Missing subset prices | 20.34% | Includes periods before price records begin |
-| Price range (USD) | $0.01–$107.32 | Observed weekly price range |
+| Price range (USD) | $0.01â€“$107.32 | Observed weekly price range |
 | Mean price (USD) | $4.41 | Mean across weekly price records |
 | Calendar event records | 162 | Event records in the source calendar |
 
@@ -206,6 +206,6 @@ The following table defines proposed project mappings. These are illustrative pr
 .\.venv\Scripts\python.exe -m pytest
 ```
 
-- **Data integrity:** Validate row counts, total units, unique Date–Store–Item keys and price missingness after rebuilding the dataset.
+- **Data integrity:** Validate row counts, total units, unique Dateâ€“Storeâ€“Item keys and price missingness after rebuilding the dataset.
 - **Dataset usage:** Follow the Kaggle competition's applicable terms and rules. Do not commit or redistribute the raw dataset through the project repository.
 
