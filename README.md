@@ -15,7 +15,7 @@ Collect ──► Clean ──► Engineer Features ──► Forecast Demand �
 ## Project Status
 
 - **Status:** In Progress (4-Week Implementation Plan)
-- **Current Milestone:** **Day 1 Complete** (Architecture, Directory Structure, Environment, Schema & Specifications)
+- **Current Milestone:** **Day 2 Complete** (Data Collection, Ingestion, Profiling, Manifest Verification & Interim Loader)
 - **Author:** Md Hussain
 
 ---
@@ -95,7 +95,17 @@ python -m pip install --upgrade pip setuptools wheel
 pip install -r requirements.txt
 ```
 
-### 2. Verify Environment & Tests
+### 2. Acquire Raw Data & Build Interim Parquet
+```bash
+# Acquire/download raw M5 dataset and generate SHA-256 manifest
+python -m src.data.download
+python -m src.data.manifest
+
+# Run stratified sampling and build interim long dataset
+python scripts/build_interim_data.py
+```
+
+### 3. Verify Environment & Tests
 
 ```bash
 # Run environment smoke test
@@ -105,7 +115,7 @@ python scripts/verify_env.py
 pytest
 ```
 
-### 3. Launch Dashboard & API
+### 4. Launch Dashboard & API
 
 ```bash
 # Run Streamlit dashboard
@@ -117,11 +127,24 @@ uvicorn api.app:app --reload --port 8000
 
 ---
 
+## Data & Benchmark Strategy
+
+The platform implements **Option D: Hybrid Strategy** using the Kaggle **M5 Forecasting (Walmart)** benchmark schema:
+- **Baseline Dynamics:** Authentic SKU-level count series capturing empirical intermittency (42.2% zero-sales cells) and weekly retail pricing.
+- **Stratified Representative Portfolio:** 108 SKUs sampled across 3 super-categories (`FOODS`, `HOBBIES`, `HOUSEHOLD`) and 3 demand terciles (low/medium/high) across 10 retail stores.
+- **Data Integrity:** Raw files are cataloged with SHA-256 hashes in `data/raw/m5/MANIFEST.md`.
+- **Interim Storage:** Reshaped into daily long format with attached shelf prices in `data/interim/m5_subset_long.parquet` (788,400 observations).
+- **Adaptations (Day 3):** Re-indexing to Indian Tier-1/2 retail hubs, ₹ price scaling, gazetted festival calendar, Open-Meteo weather telemetry, and simulated inventory stocks.
+
+---
+
 ## Documentation
 
 - [Technical Specification](docs/tech_spec.md)
+- [Data Sources & Strategy](docs/data_sources.md)
 - [Data Dictionary](docs/data_dictionary.md)
 - [Business & Forecast KPIs](docs/kpis.md)
+- [Day 2 Implementation Guide](docs/day2_data_collection.md)
 
 ---
 
