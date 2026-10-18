@@ -16,7 +16,7 @@ Collect ──► Clean ──► Engineer Features ──► Forecast Demand �
 
 - **Status:** In Progress (4-Week Implementation Plan)
 - **Current Milestone:** **Day 2 Complete** (Data Collection, Ingestion, Profiling, Manifest Verification & Interim Loader)
-- **Author:** Md Hussain
+- **Author:** Mohammad Mozammil Hussain
 
 ---
 
