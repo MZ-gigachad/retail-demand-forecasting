@@ -1,4 +1,4 @@
-﻿# Python
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
@@ -27,6 +27,9 @@ data/external/*
 !data/**/.gitkeep
 !data/**/MANIFEST.md
 !data/sample/*
+!data/external/category_mapping.csv
+!data/external/store_mapping.csv
+!data/external/holidays_india.csv
 
 # Models and artefacts
 models/*

@@ -1,4 +1,4 @@
-project:
+﻿project:
   name: retail-demand-forecasting
   author: Md Hussain
   version: 0.1.0
@@ -57,3 +57,30 @@ inventory:
   lead_time_days: 7
   holding_cost_rate: 0.20
   stockout_penalty_multiplier: 1.5
+
+adaptation:
+  seed: 42
+  price_scale:
+    FOODS: 30
+    HOUSEHOLD: 35
+    HOBBIES: 40
+  price_jitter: 0.10
+  promo:
+    window_weeks: 13
+    min_periods: 4
+    min_discount: 0.05
+  festival_uplift:
+    enabled: true
+    window_days: 7
+    by_category:
+      Grocery & Food: 0.25
+      Home & Household: 0.20
+      Toys & Hobbies: 0.15
+  inventory:
+    review_days: 7
+    service_z: 1.65
+    window: 28
+    initial_cover_days: 14
+  weather:
+    enabled: true
+    use_fallback_if_api_fails: true

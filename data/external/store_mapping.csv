@@ -1,0 +1,11 @@
+Source_Store_ID,Store_ID,Store_Name,City,State,Region,Latitude,Longitude
+CA_1,STORE_001,Bangalore-01,Bangalore,Karnataka,South,12.9716,77.5946
+CA_2,STORE_002,Bangalore-02,Bangalore,Karnataka,South,12.9716,77.5946
+CA_3,STORE_003,Mumbai-01,Mumbai,Maharashtra,West,19.0760,72.8777
+CA_4,STORE_004,Delhi-01,Delhi,Delhi,North,28.6139,77.2090
+TX_1,STORE_005,Hyderabad-01,Hyderabad,Telangana,South,17.3850,78.4867
+TX_2,STORE_006,Chennai-01,Chennai,Tamil Nadu,South,13.0827,80.2707
+TX_3,STORE_007,Pune-01,Pune,Maharashtra,West,18.5204,73.8567
+WI_1,STORE_008,Kolkata-01,Kolkata,West Bengal,East,22.5726,88.3639
+WI_2,STORE_009,Ahmedabad-01,Ahmedabad,Gujarat,West,23.0225,72.5714
+WI_3,STORE_010,Jaipur-01,Jaipur,Rajasthan,North,26.9124,75.7873

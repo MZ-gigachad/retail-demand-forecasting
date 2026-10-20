@@ -15,7 +15,7 @@ Collect ──► Clean ──► Engineer Features ──► Forecast Demand �
 ## Project Status
 
 - **Status:** In Progress (4-Week Implementation Plan)
-- **Current Milestone:** **Day 2 Complete** (Data Collection, Ingestion, Profiling, Manifest Verification & Interim Loader)
+- **Current Milestone:** **Day 3 Complete** (Domain Adaptation, Indian Retail Mapping, Holiday/Festival Calendars, Weather Integration, Inventory Simulation & Dataset Assembly)
 - **Author:** Md Hussain
 
 ---
@@ -46,15 +46,16 @@ retail-demand-forecasting/
 ├── .github/workflows/        # CI automation workflows
 ├── .vscode/                  # Workspace settings and debugger configurations
 ├── data/
-│   ├── raw/                  # Immutable original datasets
-│   ├── interim/              # Intermediate transformations
+│   ├── raw/                  # Immutable original datasets and assembled raw dataset
+│   ├── interim/              # Intermediate transformations and dimension masters
 │   ├── processed/            # Cleaned data and feature-engineered datasets
-│   └── external/             # Holiday calendars and weather telemetry
+│   ├── external/             # Mappings, holiday calendars, and weather telemetry
+│   └── sample/               # Light sample dataset for review without raw data
 ├── notebooks/                # Research and exploratory Jupyter notebooks
 ├── src/                      # Production source package
 │   ├── config.py             # Configuration loader
 │   ├── utils.py              # Reproducibility seed management and logging
-│   ├── data/                 # Ingestion and synthetic data generators
+│   ├── data/                 # Ingestion, adaptation, simulations, and assembly
 │   ├── preprocessing/        # Data cleaning and sanity validation
 │   ├── features/             # Lag, rolling, and temporal feature engineering
 │   ├── models/               # Prophet, LSTM, and CatBoost models
@@ -63,10 +64,11 @@ retail-demand-forecasting/
 ├── api/                      # FastAPI REST application
 ├── dashboard/                # Streamlit interactive dashboard
 ├── models/                   # Serialized model weights and artifacts
-├── reports/figures/          # Generated charts and diagrams
-├── docs/                     # Architecture, technical specs, and KPIs
+├── reports/                  # Validation reports and dataset profiles
+├── docs/                     # Architecture, technical specs, and guides
 │   ├── tech_spec.md
 │   ├── data_dictionary.md
+│   ├── data_sources.md
 │   └── kpis.md
 ├── tests/                    # Pytest test suite
 ├── scripts/                  # Verification and utility scripts
@@ -105,7 +107,16 @@ python -m src.data.manifest
 python scripts/build_interim_data.py
 ```
 
-### 3. Verify Environment & Tests
+### 3. Assemble Day 3 Adapted Dataset & Validate
+```bash
+# Run full adaptation, weather telemetry, inventory simulation, and assembly
+python -m src.data.assemble
+
+# Validate data integrity and generate markdown profile report
+python -m src.data.validate_raw
+```
+
+### 4. Verify Environment & Tests
 
 ```bash
 # Run environment smoke test
@@ -115,7 +126,7 @@ python scripts/verify_env.py
 pytest
 ```
 
-### 4. Launch Dashboard & API
+### 5. Launch Dashboard & API
 
 ```bash
 # Run Streamlit dashboard
@@ -130,11 +141,20 @@ uvicorn api.app:app --reload --port 8000
 ## Data & Benchmark Strategy
 
 The platform implements **Option D: Hybrid Strategy** using the Kaggle **M5 Forecasting (Walmart)** benchmark schema:
-- **Baseline Dynamics:** Authentic SKU-level count series capturing empirical intermittency (42.2% zero-sales cells) and weekly retail pricing.
+- **Baseline Dynamics:** Authentic SKU-level count series capturing empirical intermittency (68.0% zero-sales cells) and weekly retail pricing.
 - **Stratified Representative Portfolio:** 108 SKUs sampled across 3 super-categories (`FOODS`, `HOBBIES`, `HOUSEHOLD`) and 3 demand terciles (low/medium/high) across 10 retail stores.
-- **Data Integrity:** Raw files are cataloged with SHA-256 hashes in `data/raw/m5/MANIFEST.md`.
-- **Interim Storage:** Reshaped into daily long format with attached shelf prices in `data/interim/m5_subset_long.parquet` (788,400 observations).
-- **Adaptations (Day 3):** Re-indexing to Indian Tier-1/2 retail hubs, ₹ price scaling, gazetted festival calendar, Open-Meteo weather telemetry, and simulated inventory stocks.
+- **Data Integrity:** Raw files are cataloged with SHA-256 hashes in `data/raw/m5/MANIFEST.md`. Raw benchmark data files are not tracked in Git.
+- **Interim Storage:** Reshaped into daily long format with attached shelf prices in `data/interim/m5_subset_long.parquet` (2,096,280 observations).
+- **Domain Adaptations (Day 3 Complete):**
+  - Mapped to 10 Indian retail stores across 9 Tier-1/Tier-2 metropolitan hubs.
+  - Category-based ₹ price scaling (paise precision) and COGS margins in `data/external/product_master.parquet`.
+  - Derived regular reference prices and promotion flags.
+  - Authentic Indian holiday calendar (`holidays` + custom festival registry) with 7-day pre-festival shopping windows.
+  - Real daily weather telemetry (temperature and precipitation) fetched and cached from Open-Meteo Historical Archive.
+  - Documented, switchable festival demand uplift with stochastic rounding.
+  - Daily inventory on-hand, stockouts, and shortfalls simulated via periodic review $(R=7, S)$ order-up-to policy.
+  - Assembled target dataset: `data/raw/retail_demand_raw.parquet` ($2,096,280$ rows $\times$ $21$ columns).
+  - Lightweight preview sample committed in `data/sample/sample_sales.csv`.
 
 ---
 
@@ -145,6 +165,7 @@ The platform implements **Option D: Hybrid Strategy** using the Kaggle **M5 Fore
 - [Data Dictionary](docs/data_dictionary.md)
 - [Business & Forecast KPIs](docs/kpis.md)
 - [Day 2 Implementation Guide](docs/day2_data_collection.md)
+- [Day 3 Implementation Guide](docs/day3_data_collection_and_adaptation.md)
 
 ---
 

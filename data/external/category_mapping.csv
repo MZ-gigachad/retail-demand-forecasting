@@ -1,0 +1,8 @@
+cat_id,Category,dept_id,Department
+FOODS,Grocery & Food,FOODS_1,Snacks & Beverages
+FOODS,Grocery & Food,FOODS_2,Staples & Packaged Food
+FOODS,Grocery & Food,FOODS_3,Fresh & Dairy
+HOUSEHOLD,Home & Household,HOUSEHOLD_1,Cleaning & Utilities
+HOUSEHOLD,Home & Household,HOUSEHOLD_2,Home Decor & Kitchen
+HOBBIES,Toys & Hobbies,HOBBIES_1,Toys & Games
+HOBBIES,Toys & Hobbies,HOBBIES_2,Stationery & Crafts
